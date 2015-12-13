@@ -71,7 +71,7 @@ namespace HomeCinema.Data
         }
         public virtual void Delete(T entity)
         {
-            //updating comments from github
+            //some comments
             DbEntityEntry dbEntityEntry = DbContext.Entry<T>(entity);
             dbEntityEntry.State = EntityState.Deleted;
         }
