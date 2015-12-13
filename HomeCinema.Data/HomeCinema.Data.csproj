@@ -58,6 +58,7 @@
     <Compile Include="Configurations\StockConfiguration.cs" />
     <Compile Include="Configurations\UserConfiguration.cs" />
     <Compile Include="Configurations\UserRoleConfiguration.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Repositories\EntityBaseRepository.cs" />
     <Compile Include="HomeCinemaContext.cs" />
     <Compile Include="Repositories\IEntityBaseRepository.cs" />
