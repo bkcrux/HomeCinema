@@ -69,12 +69,6 @@ namespace HomeCinema.Data
             DbEntityEntry dbEntityEntry = DbContext.Entry<T>(entity);
             DbContext.Set<T>().Add(entity);
         }
-        public virtual void Edit(T entity)
-        {
-            DbEntityEntry dbEntityEntry = DbContext.Entry<T>(entity);
-            dbEntityEntry.State = EntityState.Modified;
-        }
-
         public virtual void Delete(T entity)
         {
             //updating comments from github
