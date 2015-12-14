@@ -8,7 +8,7 @@ namespace HomeCinema.Entities
 {
     public class Movie : IEntityBase
     {
-        Movie()
+        public Movie()
         {
             Stocks = new List<Stock>();
         }
