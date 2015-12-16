@@ -8,6 +8,8 @@ using HomeCinema.Entities;
 using HomeCinema.Data;
 using HomeCinema.Data.Infrastructure;
 using HomeCinema.Data.Extensions;
+using HomeCinema.Services.Utilities;
+using System.Security.Principal;
 
 namespace HomeCinema.Services
 {
@@ -31,6 +33,8 @@ namespace HomeCinema.Services
             _userRepository = userRepository;
             _roleRepository = roleRepository;
             _userRoleRepository = userRoleRepository;
+            _encryptionService = encryptionService;
+            _unitOfWork = unitOfWork;
         } 
 
         private void addUserToRole(User user, int roleId)
@@ -66,23 +70,73 @@ namespace HomeCinema.Services
         public User CreateUser(string username, string email, string password, int[] roles)
         {
             var existingUser = _userRepository.GetSingleByUsername(username);
-        
+            if (existingUser == null)
+            {
+                throw new Exception("Username is already in use.");
+            }
 
+            var passwordSalt = _encryptionService.CreateSalt();
+
+            var user = new User()
+            {
+                Username = username,
+                Email = email,
+                IsLocked = false,
+                HashedPassword = _encryptionService.EncryptPassword(password, passwordSalt),
+                DateCreated = DateTime.Now
+            };
+
+            _userRepository.Add(user);
+            _unitOfWork.Commit();
+
+            if (roles != null || roles.Length > 0)
+            {
+                foreach(var role in roles)
+                {
+                    addUserToRole(user, role);
+                }
+            }
+
+            _unitOfWork.Commit();
+
+            return user;
         }
 
         public User GetUser(int userId)
         {
-            throw new NotImplementedException();
+            return _userRepository.GetSingle(userId);
         }
 
         public List<Role> GetUserRoles(string username)
         {
-            throw new NotImplementedException();
+            List<Role> roles = new List<Role>();
+
+            var u = _userRepository.GetSingleByUsername(username);
+            if (u != null)
+            {
+                foreach (var userRole in u.UserRoles)
+                {
+                    roles.Add(userRole.Role);
+                }
+            }
+            return roles.Distinct().ToList();
         }
 
         public MembershipContext ValidateUser(string username, string password)
         {
-            throw new NotImplementedException();
+            var membershipCtx = new MembershipContext();
+            var user = _userRepository.GetSingleByUsername(username);
+            if (user != null)
+            {
+                var userRoles = GetUserRoles(username);
+                membershipCtx.User = user;
+
+                var identity = new GenericIdentity(user.Username);
+                membershipCtx.Principal = new GenericPrincipal(
+                    identity, userRoles.Select(x => x.Name).ToArray());
+            }
+
+            return membershipCtx;
         }
     }
 }

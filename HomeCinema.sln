@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeCinema.Data", "HomeCine
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeCinema.Services", "HomeCinema.Services\HomeCinema.Services.csproj", "{D0C96E46-A56F-4D82-B690-5C836A9BBFFB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeCinema.Web", "HomeCinema.Web\HomeCinema.Web.csproj", "{F23A4A79-8BD9-43A2-ABFB-9B6913B66759}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{D0C96E46-A56F-4D82-B690-5C836A9BBFFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0C96E46-A56F-4D82-B690-5C836A9BBFFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D0C96E46-A56F-4D82-B690-5C836A9BBFFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F23A4A79-8BD9-43A2-ABFB-9B6913B66759}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F23A4A79-8BD9-43A2-ABFB-9B6913B66759}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F23A4A79-8BD9-43A2-ABFB-9B6913B66759}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F23A4A79-8BD9-43A2-ABFB-9B6913B66759}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
